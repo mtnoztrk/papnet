@@ -46,4 +46,11 @@ public record PapRequest
         };
         return new FormUrlEncodedContent(values);
     }
+
+    [JsonConstructor]
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    private PapRequest()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    {
+    }
 }

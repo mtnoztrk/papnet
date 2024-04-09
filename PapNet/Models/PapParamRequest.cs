@@ -27,17 +27,6 @@ public record PapParamRequest
     [JsonPropertyName("isInFrame")]
     public bool InFrame { get; set; } = false;
 
-    [JsonConstructor]
-    private PapParamRequest(string visitorId, string url, SaleRequest sale, string accountId, string tracking, bool isInFrame)
-    {
-        VisitorId = visitorId;
-        Url = url;
-        Sale = sale;
-        AccountId = accountId;
-        Tracking = tracking;
-        InFrame = isInFrame;
-    }
-
     public PapParamRequest(string visitorId, string url, SaleRequest sale)
     {
         VisitorId = visitorId;
@@ -52,6 +41,13 @@ public record PapParamRequest
                          select p.GetCustomAttribute<JsonPropertyNameAttribute>()!.Name
                                 + "=" + HttpUtility.UrlEncode(p.GetValue(this, null)!.ToString());
         return string.Join("&", properties.OrderBy(c => c).ToArray());
+    }
+
+    [JsonConstructor]
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    private PapParamRequest()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    {
     }
 }
 
@@ -107,15 +103,9 @@ public record SaleRequest
     }
 
     [JsonConstructor]
-    private SaleRequest(string ac, decimal? t, string o, string p, string d1, string d2, string d3, string d4)
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    private SaleRequest()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
-        Action = ac;
-        TotalCost = t;
-        OrderId = o;
-        ProductId = p;
-        Data1 = d1;
-        Data2 = d2;
-        Data3 = d3;
-        Data4 = d4;
     }
 }
