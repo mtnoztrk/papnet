@@ -27,6 +27,17 @@ public record PapParamRequest
     [JsonPropertyName("isInFrame")]
     public bool InFrame { get; set; } = false;
 
+    [JsonConstructor]
+    private PapParamRequest(string visitorId, string url, SaleRequest sale, string accountId, string tracking, bool isInFrame)
+    {
+        VisitorId = visitorId;
+        Url = url;
+        Sale = sale;
+        AccountId = accountId;
+        Tracking = tracking;
+        InFrame = isInFrame;
+    }
+
     public PapParamRequest(string visitorId, string url, SaleRequest sale)
     {
         VisitorId = visitorId;
@@ -93,5 +104,18 @@ public record SaleRequest
     public override string ToString()
     {
         return $"[{JsonSerializer.Serialize(this, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull })}]";
+    }
+
+    [JsonConstructor]
+    private SaleRequest(string ac, decimal? t, string o, string p, string d1, string d2, string d3, string d4)
+    {
+        Action = ac;
+        TotalCost = t;
+        OrderId = o;
+        ProductId = p;
+        Data1 = d1;
+        Data2 = d2;
+        Data3 = d3;
+        Data4 = d4;
     }
 }
